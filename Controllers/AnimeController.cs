@@ -30,7 +30,7 @@ namespace ZAnime.Controllers
             if (anime.Title == "My dress up darling")
             {
                 ModelState.AddModelError("Title", "Anime already exists");
-            } 
+            }
             // Null Exception
             if (ModelState.IsValid)
             {
@@ -42,6 +42,61 @@ namespace ZAnime.Controllers
             {
                 return View(anime);
             }
+        }
+
+        public IActionResult Edit(int? Id)
+        {
+            if (Id == 0 || Id == null)
+                return NotFound();
+
+            var anime = _context.Animes.Find(Id);
+
+            if (anime == null)
+                return NotFound();
+
+            return View(anime);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(Anime anime)
+        {
+            // Server Side Validation
+            if (anime.Title == "My dress up darling")
+            {
+                ModelState.AddModelError("Title", "Anime already exists");
+            }
+            // Null Exception
+            if (ModelState.IsValid)
+            {
+                _context.Animes.Update(anime);
+                _context.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View(anime);
+            }
+
+        }
+        public IActionResult Delete(int? Id)
+        {
+            if (Id == 0 || Id == null)
+                return NotFound();
+
+            var anime = _context.Animes.Find(Id);
+
+            if (anime == null)
+                return NotFound();
+
+            return View(anime);
+        }
+
+        [HttpPost]
+        public IActionResult Delete(Anime anime)
+        {
+            _context.Animes.Remove(anime);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
         }
     }
 }

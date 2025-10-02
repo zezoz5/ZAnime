@@ -34,10 +34,10 @@
                     <td width="30%">@anime.Season</td>
                     <td width="20%">@anime.State</td>
                     <td width="20%">
-                        <a asp-controller="Anime" asp-action="Edit" class="btn btn-sm btn-success">
+                        <a asp-controller="Anime" asp-action="Edit" asp-route-Id="@anime.Id" class="btn btn-sm btn-success">
                             <i class="bi bi-pencil-square"></i></a>
                         &nbsp;
-                        <a asp-controller="Anime" asp-action="Delete" class="btn btn-sm btn-danger">
+                        <a asp-controller="Anime" asp-action="Delete" asp-route-Id="@anime.Id" class="btn btn-sm btn-danger">
                             <i class="bi bi-x-circle"></i></a>
                     </td>
                 </tr>
