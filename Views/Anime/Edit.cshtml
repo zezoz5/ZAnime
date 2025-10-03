@@ -33,6 +33,12 @@
             <input asp-for="State" class="form-control">
             <span asp-validation-for="State" class="text-danger"></span>
         </div>
+        <div class="mb-3">
+            <label asp-for="ImageUrl"></label>
+            &nbsp;
+            <input asp-for="ImageUrl" class="form-control">
+            <span asp-validation-for="ImageUrl" class="text-danger"></span>
+        </div>
         <button type="submit" class="btn btn-primary" style="width:150px">Save</button>
         &nbsp;
         <a asp-action="Index" asp-controller="Anime" class="btn btn-secondary" style="width:150px">Back To Anime</a>

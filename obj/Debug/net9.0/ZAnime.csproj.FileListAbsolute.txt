@@ -153,7 +153,6 @@ D:\ASP.NET Core Course\ZAnime\obj\Debug\net9.0\rjsmcshtml.dswa.cache.json
 D:\ASP.NET Core Course\ZAnime\obj\Debug\net9.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
 D:\ASP.NET Core Course\ZAnime\obj\Debug\net9.0\scopedcss\bundle\ZAnime.styles.css
 D:\ASP.NET Core Course\ZAnime\obj\Debug\net9.0\scopedcss\projectbundle\ZAnime.bundle.scp.css
-D:\ASP.NET Core Course\ZAnime\obj\Debug\net9.0\compressed\4pawlnxb7b-x61opglx0b.gz
 D:\ASP.NET Core Course\ZAnime\obj\Debug\net9.0\compressed\d0tu0tm0l9-b9sayid5wm.gz
 D:\ASP.NET Core Course\ZAnime\obj\Debug\net9.0\compressed\y9x4hesw5h-61n19gt1b8.gz
 D:\ASP.NET Core Course\ZAnime\obj\Debug\net9.0\compressed\sxgv15mreh-xtxxf3hu2r.gz
@@ -228,3 +227,4 @@ D:\ASP.NET Core Course\ZAnime\obj\Debug\net9.0\refint\ZAnime.dll
 D:\ASP.NET Core Course\ZAnime\obj\Debug\net9.0\ZAnime.pdb
 D:\ASP.NET Core Course\ZAnime\obj\Debug\net9.0\ZAnime.genruntimeconfig.cache
 D:\ASP.NET Core Course\ZAnime\obj\Debug\net9.0\ref\ZAnime.dll
+D:\ASP.NET Core Course\ZAnime\obj\Debug\net9.0\compressed\4pawlnxb7b-8ln7kvpasc.gz

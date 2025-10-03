@@ -11,6 +11,7 @@ namespace ZAnime.Models
         [DisplayName("Statues")]
         public string State { get; set; } = string.Empty;
         public string Season { get; set; } = string.Empty;
+        public string ImageUrl { get; set; } = string.Empty; // "images/animes/Nisekoi.jpg"
 
         public ICollection<UserAnime> Viewers { get; set; } = [];
         public ICollection<Genre> Genres { get; set; } = [];

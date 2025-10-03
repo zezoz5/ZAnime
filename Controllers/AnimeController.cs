@@ -60,11 +60,6 @@ namespace ZAnime.Controllers
         [HttpPost]
         public IActionResult Edit(Anime anime)
         {
-            // Server Side Validation
-            if (anime.Title == "My dress up darling")
-            {
-                ModelState.AddModelError("Title", "Anime already exists");
-            }
             // Null Exception
             if (ModelState.IsValid)
             {
