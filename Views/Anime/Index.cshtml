@@ -7,7 +7,7 @@
     <div class="row pt-5">
 
         <div class="col-6">
-            <h2 class="text-body mb-4">Anime View</h2>
+            <h3 class="text-body mb-4">Anime View</h3>
         </div>
 
         <div class="col-6 text-end">
@@ -15,31 +15,23 @@
                 <i class="bi bi-plus"></i> &nbsp; Add New Anime</a>
         </div>
 
-    </div>
-
-    <div class="container">
-
-        <div class="row justify-content-center g-4">
-
-            @foreach (Anime anime in Model)
-        {
-            <div class="col-6 col-sm-4 col-md-3 col-lg-2">
-                <div class="card shadow-sm h-100">
-                    <div class="poster-container"> 
-                        <img src="@Url.Content("~/" + anime.ImageUrl)" class="card-img-top" alt="@anime.Title">
-                            <div class="card-body text-center">
-                            <h4 class="card-title">@anime.Title</h4>
-                        
+        <div class="container">
+            <div class="row ">
+                @foreach (Anime anime in Model)
+                {
+                    <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+                        <div class="card h-100">
+                            <div class="poster-container mb-2">
+                                <img src="@anime.ImageUrl" class="img-fluid card-img-top rounded" alt="@anime.Title">
+                            </div>
+                            <div class="card-body">
+                                <p class="card-title">@anime.Title</p>
+                                
+                            </div>
                         </div>
                     </div>
-                </div>
+                }
             </div>
-        }
-    
-
         </div>
-
     </div>
-
-
 </div>
