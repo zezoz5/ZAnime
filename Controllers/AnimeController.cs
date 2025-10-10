@@ -1,41 +1,42 @@
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ZAnime.Data;
 using ZAnime.Models;
+using ZAnime.Repositories.Interfaces;
 
 namespace ZAnime.Controllers
 {
     public class AnimeController : Controller
     {
-        private readonly AppDbContext _context;
-
-        public AnimeController(AppDbContext context)
+        private readonly IAnime _anime;
+        public AnimeController(IAnime anime)
         {
-            _context = context;
+            _anime = anime;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            IEnumerable<Anime> animeList = _context.Animes.ToList();
-            return View(animeList);
+            return View(await _anime.GetAnimesAsync());
         }
 
-        public IActionResult New()
+        // Get
+        public IActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
-        public IActionResult New(Anime anime)
+        public async Task<IActionResult> Create(Anime anime)
         {
             // Server Side Validation
-            if (anime.Title == "My dress up darling")
+            if (await _anime.TitleExistAsync(anime.Title))
             {
                 ModelState.AddModelError("Title", "Anime already exists");
             }
+
             // Null Exception
             if (ModelState.IsValid)
             {
-                _context.Animes.Add(anime);
-                _context.SaveChanges();
+                await _anime.AddAsync(anime);
                 return RedirectToAction("Index");
             }
             else
@@ -44,54 +45,50 @@ namespace ZAnime.Controllers
             }
         }
 
-        public IActionResult Edit(int? Id)
+        // GET
+        public async Task<IActionResult> Edit(int? Id)
         {
-            if (Id == 0 || Id == null)
-                return NotFound();
+            var anime = await _anime.GetAnimeByIdAsync(Id);
 
-            var anime = _context.Animes.Find(Id);
-
-            if (anime == null)
-                return NotFound();
+            if (anime == null) return NotFound();
 
             return View(anime);
         }
 
         [HttpPost]
-        public IActionResult Edit(Anime anime)
+        public async Task<IActionResult> Edit(Anime anime)
         {
             // Null Exception
             if (ModelState.IsValid)
             {
-                _context.Animes.Update(anime);
-                _context.SaveChanges();
+                await _anime.UpdateAsync(anime);
                 return RedirectToAction("Index");
             }
-            else
-            {
-                return View(anime);
-            }
-
+            return View(anime);
         }
-        public IActionResult Delete(int? Id)
+
+        // GET
+        public async Task<IActionResult> Delete(int? Id)
         {
-            if (Id == 0 || Id == null)
-                return NotFound();
+            var anime = await _anime.GetAnimeByIdAsync(Id);
 
-            var anime = _context.Animes.Find(Id);
-
-            if (anime == null)
-                return NotFound();
+            if (anime == null) return NotFound();
 
             return View(anime);
         }
 
         [HttpPost]
-        public IActionResult Delete(Anime anime)
+        public async Task<IActionResult> Delete(Anime anime)
         {
-            _context.Animes.Remove(anime);
-            _context.SaveChanges();
+            await _anime.DeleteAsync(anime);
             return RedirectToAction("Index");
+        }
+
+        // GET
+        public async Task<IActionResult> Details(int? Id)
+        {
+            var anime = await _anime.GetAnimeByIdAsync(Id);
+            return View(anime);
         }
     }
 }

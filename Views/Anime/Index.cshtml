@@ -1,37 +1,111 @@
-@model IEnumerable<Anime>
+@model IEnumerable<ZAnime.Models.Anime>
+
 @{
-    ViewData[index: "Title"] = "Anime View";
+    ViewData["Title"] = "Anime List";
 }
-<div class="container p-4">
 
-    <div class="row pt-5">
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Anime Collection</h1>
+        <a asp-action="Create" class="btn btn-primary btn-lg">
+            <i class="fas fa-plus me-2"></i>Add New Anime
+        </a>
+    </div>
 
-        <div class="col-6">
-            <h3 class="text-body mb-4">Anime View</h3>
-        </div>
-
-        <div class="col-6 text-end">
-            <a asp-controller="Anime" asp-action="New" class="btn btn-primary">
-                <i class="bi bi-plus"></i> &nbsp; Add New Anime</a>
-        </div>
-
-        <div class="container">
-            <div class="row ">
-                @foreach (Anime anime in Model)
-                {
-                    <div class="col-6 col-sm-4 col-md-3 col-lg-2">
-                        <div class="card h-100">
-                            <div class="poster-container mb-2">
-                                <img src="@anime.ImageUrl" class="img-fluid card-img-top rounded" alt="@anime.Title">
+    <div class="row g-4">
+        @foreach (var anime in Model)
+        {
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="card h-100 shadow-sm border-0">
+                    <div class="position-relative">
+                        @if (!string.IsNullOrEmpty(anime.ImageUrl))
+                        {
+                            <img src="@Url.Content("~/" + anime.ImageUrl)" class="card-img-top" alt="@anime.Title"
+                                style="height: 250px; object-fit: cover;" />
+                        }
+                        else
+                        {
+                            <div class="bg-light d-flex align-items-center justify-content-center" style="height: 250px;">
+                                <span class="text-muted">No Image</span>
                             </div>
-                            <div class="card-body">
-                                <p class="card-title">@anime.Title</p>
-                                
+                        }
+
+                        <!-- Status badge overlay -->
+                        <div class="position-absolute top-0 end-0 m-2">
+                            @if (anime.State?.ToLower() == "active")
+                            {
+                                <span class="badge bg-success">Active</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-danger">@anime.State</span>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">@anime.Title</h5>
+                        <p class="card-text text-muted flex-grow-1">
+                            @if (!string.IsNullOrEmpty(anime.Description))
+                            {
+                                @(anime.Description.Length > 100 ? anime.Description.Substring(0, 100) + "..." :
+                                                        anime.Description)
+                            }
+                            else
+                            {
+                                <em>No description available</em>
+                            }
+                        </p>
+
+                        <div class="mt-auto">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small class="card-footer text-muted">Season @anime.Season • @anime.State</small>
+
+                                <!-- Action buttons -->
+                                <div class="btn-group" role="group">
+                                    <a asp-action="Details" asp-route-id="@anime.Id" class="btn btn-outline-primary btn-sm"
+                                        title="View Details">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
+                                    <a asp-action="Edit" asp-route-id="@anime.Id" class="btn btn-outline-warning btn-sm"
+                                        title="Edit Anime">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <button type="button" class="btn btn-outline-danger btn-sm" data-bs-toggle="modal"
+                                        data-bs-target="#deleteModal-@anime.Id" title="Delete Anime">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                }
+                </div>
             </div>
-        </div>
+
+            <!-- Delete Confirmation Modal -->
+            <div class="modal fade" id="deleteModal-@anime.Id" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Confirm Delete</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Are you sure you want to delete <strong>@anime.Title</strong>?</p>
+                            <p class="text-danger">This action cannot be undone.</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <form asp-action="Delete" asp-route-id="@anime.Id" method="post" style="display:inline;">
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
     </div>
 </div>
+
+<!-- Font Awesome Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />

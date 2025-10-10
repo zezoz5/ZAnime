@@ -4012,6 +4012,8 @@ textarea.form-control-lg {
   --bs-nav-link-disabled-color: var(--bs-navbar-disabled-color);
   display: flex;
   flex-direction: column;
+  margin-left: auto;
+  margin-right: auto;
   padding-left: 0;
   margin-bottom: 0;
   list-style: none;
@@ -4049,6 +4051,13 @@ textarea.form-control-lg {
   border: var(--bs-border-width) solid var(--bs-navbar-toggler-border-color);
   border-radius: var(--bs-navbar-toggler-border-radius);
   transition: var(--bs-navbar-toggler-transition);
+}
+@media (max-width: 991.98px) {
+  .navbar-nav {
+    margin-left: 0;
+    margin-right: 0;
+    text-align: center;
+  }
 }
 @media (prefers-reduced-motion: reduce) {
   .navbar-toggler {

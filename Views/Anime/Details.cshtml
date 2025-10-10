@@ -1,0 +1,108 @@
+@model ZAnime.Models.Anime
+
+@{
+    ViewData["Title"] = Model.Title;
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-12 text-center mb-4">
+            <h1 class="display-4 fw-bold text-body">@Model.Title</h1>
+            
+            <div class="d-flex justify-content-center flex-wrap gap-3 mt-3">
+                <span class="badge bg-primary fs-5 px-3 py-2">
+                    <i class="fas fa-calendar me-2"></i>Season @Model.Season
+                </span>
+                @if (Model.State?.ToLower() == "active")
+                {
+                    <span class="badge bg-success fs-5 px-3 py-2">
+                        <i class="fas fa-circle me-2"></i>Active
+                    </span>
+                }
+                else
+                {
+                    <span class="badge bg-danger fs-5 px-3 py-2">
+                        <i class="fas fa-circle me-2"></i>@Model.State
+                    </span>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-lg-4 col-md-5">
+            <div class="card shadow-sm border-0">
+                <div class="card-body text-center">
+                    @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                    {
+                        <img src="@Url.Content("~/"+Model.ImageUrl)" 
+                             class="img-fluid rounded" 
+                             alt="@Model.Title"
+                             style="max-height: 500px; object-fit: cover;" />
+                    }
+                    else
+                    {
+                        <div class="bg-light border rounded d-flex align-items-center justify-content-center" 
+                             style="height: 400px;">
+                            <span class="text-muted">No poster available</span>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-8 col-md-7">
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
+                    <h3 class="card-title mb-4 pb-2 border-bottom">Description</h3>
+                    
+                    @if (!string.IsNullOrEmpty(Model.Description))
+                    {
+                        <p class="card-text fs-5 text-muted" style="line-height: 1.7;">
+                            @Model.Description
+                        </p>
+                    }
+                    else
+                    {
+                        <p class="card-text text-muted fst-italic">No description available.</p>
+                    }
+
+                    <div class="row mt-4 pt-3 border-top">
+                        <div class="col-md-6 mb-3">
+                            <div class="card bg-light h-100">
+                                <div class="card-body text-center">
+                                    <h6 class="card-subtitle mb-2 text-muted">SEASON</h6>
+                                    <h4 class="card-title mb-0 fw-bold">@Model.Season</h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="card bg-light h-100">
+                                <div class="card-body text-center">
+                                    <h6 class="card-subtitle mb-2 text-muted">STATUS</h6>
+                                    @if (Model.State?.ToLower() == "active")
+                                    {
+                                        <h4 class="card-title mb-0 fw-bold text-success">@Model.State</h4>
+                                    }
+                                    else
+                                    {
+                                        <h4 class="card-title mb-0 fw-bold text-danger">@Model.State</h4>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-4 text-center">
+                <a asp-action="Index" class="btn btn-outline-secondary btn-lg px-4">
+                    <i class="fas fa-arrow-left me-2"></i>Back to List
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Font Awesome Icons (optional but recommended) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
