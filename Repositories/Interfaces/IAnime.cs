@@ -6,6 +6,7 @@ namespace ZAnime.Repositories.Interfaces
     {
         // Get operations
         public Task<IEnumerable<Anime>> GetAnimesAsync();
+        public Task<IEnumerable<Anime>> AnimeSearch(string searchString);
         public Task<Anime?> GetAnimeByIdAsync(int? id);
 
         // Create operations

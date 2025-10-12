@@ -18,6 +18,12 @@ namespace ZAnime.Repositories
             return await _context.Animes.ToListAsync();
         }
 
+        public async Task<IEnumerable<Anime>> AnimeSearch(string searchTitle)
+        {
+            return await _context.Animes.Where(a => a.Title.Contains(searchTitle)).ToListAsync();
+        }
+
+
         public async Task<Anime?> GetAnimeByIdAsync(int? id)
         {
             return await _context.Animes.FindAsync(id);
@@ -41,9 +47,14 @@ namespace ZAnime.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public Task<bool> TitleExistAsync(string title)
+        public async Task<bool> TitleExistAsync(string title)
         {
-            throw new NotImplementedException();
+            if (await _context.Animes.AnyAsync(a => a.Title == title))
+            {
+                return false;
+            }
+            return true;
         }
     }
+
 }

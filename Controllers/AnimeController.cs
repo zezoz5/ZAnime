@@ -1,6 +1,4 @@
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using ZAnime.Data;
 using ZAnime.Models;
 using ZAnime.Repositories.Interfaces;
 
@@ -13,9 +11,20 @@ namespace ZAnime.Controllers
         {
             _anime = anime;
         }
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
-            return View(await _anime.GetAnimesAsync());
+            IEnumerable<Anime> animeList;
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                animeList = await _anime.AnimeSearch(searchString);
+            }
+            else
+            {
+                animeList = await _anime.GetAnimesAsync();
+            }
+
+            return View(animeList);
         }
 
         // Get

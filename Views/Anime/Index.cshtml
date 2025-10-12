@@ -1,13 +1,21 @@
 @model IEnumerable<ZAnime.Models.Anime>
 
 @{
-    ViewData["Title"] = "Anime List";
+    ViewData[index: "Title"] = "Anime List";
 }
 
+<div class="row">
+    <div class="col-md-2 mt-4">
+        <form asp-controller="Anime" asp-action="Index" class="d-flex">
+            <input name="searchString" class="form-control me-1" type="search" placeholder="search" value="@ViewData["searchString"]">
+        </form>
+    </div>
+</div>
+
 <div class="container mt-4">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h1>Anime Collection</h1>
-        <a asp-action="Create" class="btn btn-primary btn-lg">
+    <div class="d-flex justify-content-between align-items-center mb-2">
+        <h4>Anime List</h4>
+        <a asp-action="Create" class="btn btn-primary">
             <i class="fas fa-plus me-2"></i>Add New Anime
         </a>
     </div>
@@ -20,7 +28,7 @@
                     <div class="position-relative">
                         @if (!string.IsNullOrEmpty(anime.ImageUrl))
                         {
-                            <img src="@Url.Content("~/" + anime.ImageUrl)" class="card-img-top" alt="@anime.Title"
+                            <img src="@Url.Content("~/" + anime.ImageUrl)" class="card-img-top mb-2" alt="@anime.Title"
                                 style="height: 250px; object-fit: cover;" />
                         }
                         else
