@@ -23,7 +23,6 @@ namespace ZAnime.Repositories
             return await _context.Animes.Where(a => a.Title.Contains(searchTitle)).ToListAsync();
         }
 
-
         public async Task<Anime?> GetAnimeByIdAsync(int? id)
         {
             return await _context.Animes.FindAsync(id);
@@ -55,6 +54,26 @@ namespace ZAnime.Repositories
             }
             return true;
         }
+
+        public async Task AddAnimeGenreAsync(int animeId, int genreId)
+        {
+            var animeGenre = new AnimeGenre 
+            {
+                AnimeId = animeId,
+                GenreId = genreId
+            };
+
+            await _context.AnimeGenres.AddAsync(animeGenre);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<Anime>> FilterByGenre(int genreId)
+        {
+            return await _context.Animes
+            .Where(ag => ag.AnimeGenres.Any(ag => ag.GenreId == genreId))
+            .ToListAsync();
+        }
+
     }
 
 }
