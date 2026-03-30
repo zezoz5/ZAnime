@@ -45,7 +45,7 @@ namespace ZAnime.Controllers
             // Null Exception
             if (ModelState.IsValid)
             {
-                await _anime.AddAsync(anime);
+                await _anime.AddAnimeAsync(anime);
                 return RedirectToAction("Index");
             }
             else
@@ -70,7 +70,7 @@ namespace ZAnime.Controllers
             // Null Exception
             if (ModelState.IsValid)
             {
-                await _anime.UpdateAsync(anime);
+                await _anime.UpdateAnimeAsync(anime);
                 return RedirectToAction("Index");
             }
             return View(anime);
@@ -89,7 +89,7 @@ namespace ZAnime.Controllers
         [HttpPost]
         public async Task<IActionResult> Delete(Anime anime)
         {
-            await _anime.DeleteAsync(anime);
+            await _anime.DeleteAnimeAsync(anime);
             return RedirectToAction("Index");
         }
 

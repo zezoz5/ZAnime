@@ -10,15 +10,22 @@ namespace ZAnime.Repositories.Interfaces
         public Task<Anime?> GetAnimeByIdAsync(int? id);
 
         // Create operations
-        public Task AddAsync(Anime anime);
+        public Task AddAnimeAsync(Anime anime);
 
         // Update operations
-        public Task UpdateAsync(Anime anime);
+        public Task UpdateAnimeAsync(Anime anime);
 
         // Delete operations
-        public Task DeleteAsync(Anime anime);
+        public Task DeleteAnimeAsync(Anime anime);
 
         // Additional queries
         public Task<bool> TitleExistAsync(string title);
+
+        // Genre operations
+        public Task AddAnimeGenreAsync(int animeId, int genreId);
+
+        
+
+         public Task<IEnumerable<Anime>> FilterByGenre(int genreId);
     }
 }

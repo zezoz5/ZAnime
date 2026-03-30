@@ -28,19 +28,19 @@ namespace ZAnime.Repositories
             return await _context.Animes.FindAsync(id);
         }
 
-        public async Task AddAsync(Anime anime)
+        public async Task AddAnimeAsync(Anime anime)
         {
             await _context.Animes.AddAsync(anime);
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateAsync(Anime anime)
+        public async Task UpdateAnimeAsync(Anime anime)
         {
             _context.Animes.Update(anime);
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(Anime anime)
+        public async Task DeleteAnimeAsync(Anime anime)
         {
             _context.Animes.Remove(anime);
             await _context.SaveChangesAsync();
@@ -62,9 +62,14 @@ namespace ZAnime.Repositories
                 AnimeId = animeId,
                 GenreId = genreId
             };
-
+            
             await _context.AnimeGenres.AddAsync(animeGenre);
             await _context.SaveChangesAsync();
+        }
+
+        public async Task RemoveAnimeGenreAsync(int animeId, int genreId)
+        {
+            
         }
 
         public async Task<IEnumerable<Anime>> FilterByGenre(int genreId)
