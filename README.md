@@ -1,33 +1,23 @@
 # ZAnime
 
-ZAnime is an ASP.NET Core MVC web application for managing an anime library. The project was built to practice the MVC architectural pattern, the Repository Pattern, and Entity Framework Core while creating a responsive web application backed by SQL Server.
+An ASP.NET Core MVC web application for managing an anime library, built with the Repository Pattern and Entity Framework Core over SQL Server.
 
-## Features
+The project was built to practice the MVC architectural pattern, separating business logic from data access, and building a responsive, server-rendered web application from scratch.
 
-- 📋 Browse all anime entries
-- 🔍 Search anime by title
-- ➕ Add new anime
-- ✏️ Edit existing anime
-- 🗑️ Delete anime
-- 📄 View anime details
-- ✅ Server-side validation
-- ⚡ Asynchronous database operations
-
-> **Note**
-> The genre feature is partially implemented and planned for future completion.
+---
 
 ## Tech Stack
 
-- C#
-- ASP.NET Core MVC
-- Entity Framework Core
-- SQL Server
-- Razor Views
-- Bootstrap
+- **Language:** C#
+- **Framework:** ASP.NET Core MVC
+- **Database:** SQL Server with Entity Framework Core
+- **Views:** Razor Views, Bootstrap
+
+---
 
 ## Architecture
 
-The application follows the ASP.NET Core MVC pattern and uses the Repository Pattern to separate business logic from data access.
+The application follows the MVC pattern, with the Repository Pattern separating business logic from data access:
 
 ```
 Controllers/
@@ -35,6 +25,48 @@ Models/
 Repositories/
 Views/
 ```
+
+---
+
+## Features
+
+- Browse all anime entries
+- Search anime by title
+- Add, edit, and delete anime
+- View anime details
+- Server-side validation
+- Asynchronous database operations
+
+> **Note:** Genre management is partially implemented and planned for future completion — see Future Work below.
+
+---
+
+## Pages & Routes
+
+This is a server-rendered MVC app, so these return HTML views, not JSON — routes follow ASP.NET Core's default `{controller}/{action}/{id?}` convention routing.
+
+### Anime
+
+| Method | Route                   | Description                                    |
+| ------ | ------------------------ | ------------------------------------------------ |
+| GET    | `/Anime`                | List all anime, or search via `?searchString=`  |
+| GET    | `/Anime/Create`         | Show the create form                            |
+| POST   | `/Anime/Create`         | Submit a new anime (rejects duplicate titles)   |
+| GET    | `/Anime/Edit/{id}`      | Show the edit form for an anime                 |
+| POST   | `/Anime/Edit`           | Submit edits to an anime                        |
+| GET    | `/Anime/Details/{id}`   | View an anime's details                         |
+| GET    | `/Anime/Delete/{id}`    | Show the delete confirmation page               |
+| POST   | `/Anime/Delete`         | Confirm and delete an anime                     |
+
+### Home
+
+| Method | Route          | Description       |
+| ------ | --------------- | ------------------ |
+| GET    | `/` or `/Home`  | Home page          |
+| GET    | `/Home/Privacy` | Privacy page       |
+| GET    | `/Home/Error`   | Error page         |
+
+---
 
 ## Getting Started
 
@@ -44,48 +76,52 @@ Views/
 - SQL Server
 - Visual Studio 2022 (recommended)
 
-### Installation
+### Setup
 
-1. Clone the repository
+1. **Clone the repository**
 
 ```bash
 git clone https://github.com/zezoz5/ZAnime.git
 ```
 
-2. Update the connection string inside `appsettings.json`.
+2. **Update the connection string** inside `appsettings.json`.
 
-3. Apply the Entity Framework Core migrations.
+3. **Apply migrations**
 
 ```bash
 dotnet ef database update
 ```
 
-4. Run the application.
+4. **Run the application**
 
 ```bash
 dotnet run
 ```
 
-## Learning Outcomes
+---
 
-This project helped me gain hands-on experience with:
+## What I Learned
 
-- ASP.NET Core MVC
-- Repository Pattern
-- Entity Framework Core
-- Razor Views
-- SQL Server integration
-- CRUD application development
-- Model validation
-- Asynchronous programming with C#
+- Structuring an ASP.NET Core MVC application with the Repository Pattern, keeping controllers thin and data access isolated
+- Server-side model validation and asynchronous CRUD operations with Entity Framework Core
+- Building and wiring up Razor Views against a real SQL Server-backed data model
 
-## Future Improvements
+---
 
-- Complete the genre management feature
-- Improve the user interface
+## Future Work
+
+- Complete genre management
 - Add pagination
 - Add authentication and authorization
-- Improve responsive design
+- Improve responsive design and overall UI
+
+---
+
+## A Note from the Developer
+
+ZAnime was built to get comfortable with the MVC pattern and the Repository Pattern in a real, if smaller, application — a step before the more architecturally deliberate work in TaskFlow.
+
+---
 
 ## License
 
